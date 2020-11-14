@@ -1,13 +1,12 @@
 import React from 'react';
 import './core/assets/styles/custom.scss'
 import './app.scss'
+import Home from './core/pages/Home';
 
 function App() {
   return (
-    <div>
-      <h1>App - Desafio</h1>
-    </div>
-    );
+    <Home />
+  );
 }
 
 export default App;
