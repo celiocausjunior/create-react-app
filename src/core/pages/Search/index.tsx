@@ -21,7 +21,7 @@ const Search = () => {
                     <button type="submit" className="btn btn-primary">Encontrar</button>
                 </form>
             </div>
-            <div className="response-search">
+            <div className="response-container">
                 <div className="row">
                     <div className="col-6">
                         <h3>Foto</h3>
