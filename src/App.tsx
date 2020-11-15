@@ -1,11 +1,11 @@
 import React from 'react';
 import './core/assets/styles/custom.scss'
 import './app.scss'
-import Home from './core/pages/Home';
+import Routes from './core/Routes';
 
 function App() {
   return (
-    <Home />
+    <Routes />
   );
 }
 

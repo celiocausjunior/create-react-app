@@ -5,4 +5,20 @@
     padding-left: 41px;
     margin-left: 0;
     margin-right: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    font-style: normal;
+    color: white;
+
+
+    &.active{
+        font-weight: bold;
+        color:white;
+    }
+
+    &:hover {
+        color: white;
+    }
 }
