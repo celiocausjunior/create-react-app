@@ -1,15 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import './styles.scss';
-import GithubImage from '../../assets/images/github.png'
+import { makeRequest } from '../../../utils/request';
+import { DataResponse } from '../../../core/types/DataResponse';
 
 const Search = () => {
 
-
     const [search, setSearch] = useState('');
-    const [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState<DataResponse>();
 
-
+    console.log(userData);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -18,13 +18,10 @@ const Search = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        fetch(`https://api.github.com/users/${search}`)
-            .then(response => response.json())
-            .then(userResponse => setUserData);
-
+        makeRequest({ url: `/${search}` })
+            .then(response => setUserData(response.data));
     }
 
-    console.log(userData);
 
 
     return (
@@ -53,21 +50,31 @@ const Search = () => {
                     <div className="col-6">
                         {!userData && (
                             <img
-                                src={GithubImage}
+                                src=""
                                 className="responsive gitImage"
                                 alt=""
                                 height="280px"
                                 width="284px"
                             />
                         )}
+                        <img
+                            src={userData?.avatar_url}
+                            className="responsive gitImage"
+                            alt=""
+                            height="280px"
+                            width="284px"
+                        />
                     </div>
                     <div className="col-6">
-                        <h3>Informações</h3><br />
+                        <span className="badge badge-light mt-5">Repositórios Públicos: {userData?.public_repos} </span>
+                        <span className="badge badge-light mt-5 ml-4">Seguidores: {userData?.followers} </span>
+                        <span className="badge badge-light mt-5 ml-4">Seguindo: {userData?.following} </span>
+                        <h5 className="information mt-4">Informações</h5><br />
                         <ul className="list-group">
-                            <li className="list-group-item">Empresa:  </li>
-                            <li className="list-group-item">Website/Blog: </li>
-                            <li className="list-group-item">Localidade: </li>
-                            <li className="list-group-item">Membro desde: </li>
+                            <li className="list-group-item">Empresa: {userData?.company} </li>
+                            <li className="list-group-item">Website/Blog: {userData?.blog}</li>
+                            <li className="list-group-item">Localidade: {userData?.location}</li>
+                            <li className="list-group-item">Membro desde: {userData?.created_at} </li>
                         </ul>
                     </div>
                 </div>
