@@ -39,7 +39,7 @@ export const Search = () => {
                         <div className="col-7">
                             <input type="text"
                                 className="form-control"
-                                placeholder="Usuário do Github"
+                                placeholder="Usuário Github"
                                 required
                                 value={search}
                                 onChange={handleOnChange}
