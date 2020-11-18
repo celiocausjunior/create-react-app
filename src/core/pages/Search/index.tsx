@@ -47,31 +47,24 @@ const Search = () => {
             </div>
             <div className="response-container">
                 <div className="row">
-                    <div className="col-6">
-                        {!userData && (
-                            <img
-                                src=""
-                                className="responsive gitImage"
-                                alt=""
-                                height="280px"
-                                width="284px"
-                            />
-                        )}
+                    <div className="col-3">
                         <img
                             src={userData?.avatar_url}
-                            className="responsive gitImage"
+                            className="rounded mx-auto d-block gitImage"
                             alt=""
                             height="280px"
                             width="284px"
                         />
+                        <button type="button" className="btn btn-primary rounded mx-auto d-block mt-3">Ver Perfil</button>
                     </div>
-                    <div className="col-6">
+                    <div className="col-8">
                         <span className="badge badge-light mt-5">Repositórios Públicos: {userData?.public_repos} </span>
                         <span className="badge badge-light mt-5 ml-4">Seguidores: {userData?.followers} </span>
                         <span className="badge badge-light mt-5 ml-4">Seguindo: {userData?.following} </span>
-                        <h5 className="information mt-4">Informações</h5><br />
+                   
                         <ul className="list-group">
-                            <li className="list-group-item">Empresa: {userData?.company} </li>
+                            <li className="list-group-item information mt-4 border-bottom-0">Informações</li>
+                            <li className="list-group-item border-top">Empresa: {userData?.company} </li>
                             <li className="list-group-item">Website/Blog: {userData?.blog}</li>
                             <li className="list-group-item">Localidade: {userData?.location}</li>
                             <li className="list-group-item">Membro desde: {userData?.created_at} </li>
