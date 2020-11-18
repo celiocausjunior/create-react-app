@@ -63,7 +63,7 @@ export const Search = () => {
                             publicRepo={userData.public_repos}
                             followers={userData.followers}
                             following={userData.following}
-                            company={userData.location}
+                            company={userData.company}
                             blog={userData.blog}
                             location={userData.location}
                             createAt={userData.created_at}
