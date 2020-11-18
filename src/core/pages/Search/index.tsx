@@ -6,11 +6,13 @@ import { DataResponse } from '../../../core/types/DataResponse';
 import ImageLoader from './components/SearchLoader/ImageLoader';
 import ProfileImage from './components/ProfileImage';
 import ProfileInformation from './components/ProfileInformation';
+import InfoLoader from './components/SearchLoader/InfoLoader';
 
 export const Search = () => {
 
     const [search, setSearch] = useState('');
     const [userData, setUserData] = useState<DataResponse>();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -18,8 +20,12 @@ export const Search = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setIsLoading(true);
         makeRequest({ url: `/${search}` })
             .then(response => setUserData(response.data))
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
 
     return (
@@ -47,18 +53,23 @@ export const Search = () => {
             {userData && (<div className="response-container">
                 <div className="row">
                     <div className="col-3 image">
-                       <ProfileImage src={userData.avatar_url} />
+                        {isLoading ? <ImageLoader /> : (
+                            <ProfileImage src={userData.avatar_url} />
+                        )}
                     </div>
                     <div className="col-8">
-                        <ProfileInformation
-                        publicRepo={userData.public_repos}
-                        followers={userData.followers}
-                        following={userData.following}
-                        company={userData.location}
-                        blog={userData.blog}
-                        location={userData.location}
-                        createAt={userData.created_at} 
-                         />
+                        {isLoading ? <InfoLoader /> : (
+                            <ProfileInformation
+                            publicRepo={userData.public_repos}
+                            followers={userData.followers}
+                            following={userData.following}
+                            company={userData.location}
+                            blog={userData.blog}
+                            location={userData.location}
+                            createAt={userData.created_at}
+                        />
+                        )}
+                        
                     </div>
                 </div>
             </div>)}
