@@ -45,7 +45,8 @@ const Search = () => {
                     <button type="submit" className="btn btn-primary">Encontrar</button>
                 </form>
             </div>
-            <div className="response-container">
+
+            {userData &&(<div className="response-container">
                 <div className="row">
                     <div className="col-3">
                         <img
@@ -71,7 +72,8 @@ const Search = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>)}
+            
         </div>
     );
 }
