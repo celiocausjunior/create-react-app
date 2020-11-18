@@ -3,26 +3,24 @@ import { useState } from 'react';
 import './styles.scss';
 import { makeRequest } from '../../../utils/request';
 import { DataResponse } from '../../../core/types/DataResponse';
+import ImageLoader from './components/SearchLoader/ImageLoader';
+import ProfileImage from './components/ProfileImage';
+import ProfileInformation from './components/ProfileInformation';
 
-const Search = () => {
+export const Search = () => {
 
     const [search, setSearch] = useState('');
     const [userData, setUserData] = useState<DataResponse>();
-
-    console.log(userData);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     }
 
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         makeRequest({ url: `/${search}` })
-            .then(response => setUserData(response.data));
+            .then(response => setUserData(response.data))
     }
-
-
 
     return (
         <div className="search-content">
@@ -46,34 +44,24 @@ const Search = () => {
                 </form>
             </div>
 
-            {userData &&(<div className="response-container">
+            {userData && (<div className="response-container">
                 <div className="row">
-                    <div className="col-3">
-                        <img
-                            src={userData?.avatar_url}
-                            className="rounded mx-auto d-block gitImage"
-                            alt=""
-                            height="280px"
-                            width="284px"
-                        />
-                        <button type="button" className="btn btn-primary rounded mx-auto d-block mt-3">Ver Perfil</button>
+                    <div className="col-3 image">
+                       <ProfileImage src={userData.avatar_url} />
                     </div>
                     <div className="col-8">
-                        <span className="badge badge-light mt-5">Repositórios Públicos: {userData?.public_repos} </span>
-                        <span className="badge badge-light mt-5 ml-4">Seguidores: {userData?.followers} </span>
-                        <span className="badge badge-light mt-5 ml-4">Seguindo: {userData?.following} </span>
-                   
-                        <ul className="list-group">
-                            <li className="list-group-item information mt-4 border-bottom-0">Informações</li>
-                            <li className="list-group-item border-top">Empresa: {userData?.company} </li>
-                            <li className="list-group-item">Website/Blog: {userData?.blog}</li>
-                            <li className="list-group-item">Localidade: {userData?.location}</li>
-                            <li className="list-group-item">Membro desde: {userData?.created_at} </li>
-                        </ul>
+                        <ProfileInformation
+                        publicRepo={userData.public_repos}
+                        followers={userData.followers}
+                        following={userData.following}
+                        company={userData.location}
+                        blog={userData.blog}
+                        location={userData.location}
+                        createAt={userData.created_at} 
+                         />
                     </div>
                 </div>
             </div>)}
-            
         </div>
     );
 }
